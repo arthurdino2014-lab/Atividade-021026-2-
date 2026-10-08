@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Cadastro de Séries</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(135deg, #4c1d95, #7e22ce);
+            min-height: 100vh;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+        }
+
+        h1 {
+            text-align: center;
+            color: #4c1d95;
+            margin-bottom: 10px;
+        }
+
+        .descricao {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .formulario {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .campo {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .campo-completo {
+            grid-column: 1 / 3;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 7px;
+            color: #333;
+        }
+
+        input {
+            padding: 12px;
+            border: 1px solid #bbb;
+            border-radius: 7px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #7e22ce;
+            box-shadow: 0 0 5px rgba(126, 34, 206, 0.3);
+        }
+
+        .botoes {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            border: none;
+            padding: 12px 25px;
+            border-radius: 7px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        .salvar {
+            background-color: #16a34a;
+        }
+
+        .limpar {
+            background-color: #dc2626;
+        }
+
+        .editar {
+            background-color: #2563eb;
+        }
+
+        .consultar {
+            background-color: #9333ea;
+        }
+
+        #mensagem {
+            text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .lista {
+            margin-top: 40px;
+        }
+
+        .lista h2 {
+            color: #4c1d95;
+            margin-bottom: 15px;
+        }
+
+        .serie {
+            background-color: #f5f3ff;
+            border-left: 5px solid #7e22ce;
+            padding: 18px;
+            margin-bottom: 15px;
+            border-radius: 7px;
+        }
+
+        .serie h3 {
+            color: #4c1d95;
+            margin-bottom: 10px;
+        }
+
+        .serie p {
+            margin: 5px 0;
+        }
+
+        @media (max-width: 650px) {
+            .formulario {
+                grid-template-columns: 1fr;
+            }
+
+            .campo-completo {
+                grid-column: 1;
+            }
+
+            body {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>🎬 Cadastro de Séries</h1>
+
+        <p class="descricao">
+            Cadastre, consulte e edite informações sobre suas séries favoritas.
+        </p>
+
+        <form id="formulario">
+
+            <div class="formulario">
+
+                <!-- Nome da série -->
+                <div class="campo campo-completo">
+                    <label for="nome">Nome da série:</label>
+                    <input
+                        type="text"
+                        id="nome"
+                        placeholder="Digite o nome da série"
+                        required>
+                </div>
+
+                <!-- Streaming -->
+                <div class="campo">
+                    <label for="streaming">Streaming:</label>
+                    <input
+                        type="text"
+                        id="streaming"
+                        placeholder="Ex.: Netflix"
+                        required>
+                </div>
+
+                <!-- Autor -->
+                <div class="campo">
+                    <label for="autor">Autor ou criador:</label>
+                    <input
+                        type="text"
+                        id="autor"
+                        placeholder="Digite o autor ou criador"
+                        required>
+                </div>
+
+                <!-- Temporadas -->
+                <div class="campo">
+                    <label for="temporadas">Quantidade de temporadas:</label>
+                    <input
+                        type="number"
+                        id="temporadas"
+                        min="1"
+                        placeholder="Ex.: 5"
+                        required>
+                </div>
+
+                <!-- Ano -->
+                <div class="campo">
+                    <label for="ano">Ano de criação:</label>
+                    <input
+                        type="number"
+                        id="ano"
+                        min="1900"
+                        max="2100"
+                        placeholder="Ex.: 2020"
+                        required>
+                </div>
+
+                <!-- Personagens -->
+                <div class="campo campo-completo">
+                    <label for="personagem1">1º personagem principal:</label>
+                    <input
+                        type="text"
+                        id="personagem1"
+                        placeholder="Digite o nome do personagem"
+                        required>
+                </div>
+
+                <div class="campo campo-completo">
+                    <label for="personagem2">2º personagem principal:</label>
+                    <input
+                        type="text"
+                        id="personagem2"
+                        placeholder="Digite o nome do personagem"
+                        required>
+                </div>
+
+                <div class="campo campo-completo">
+                    <label for="personagem3">3º personagem principal:</label>
+                    <input
+                        type="text"
+                        id="personagem3"
+                        placeholder="Digite o nome do personagem"
+                        required>
+                </div>
+
+            </div>
+
+            <!-- BOTÕES -->
+            <div class="botoes">
+
+                <button
+                    type="button"
+                    class="salvar"
+                    onclick="salvarSerie()">
+                    💾 Salvar
+                </button>
+
+                <button
+                    type="button"
+                    class="limpar"
+                    onclick="limparFormulario()">
+                    🗑️ Limpar
+                </button>
+
+                <button
+                    type="button"
+                    class="editar"
+                    onclick="editarSerie()">
+                    ✏️ Editar
+                </button>
+
+                <button
+                    type="button"
+                    class="consultar"
+                    onclick="consultarSeries()">
+                    🔎 Consultar
+                </button>
+
+            </div>
+
+        </form>
+
+        <p id="mensagem"></p>
+
+        <!-- ÁREA ONDE OS CADASTROS APARECEM -->
+        <div class="lista">
+
+            <h2>📋 Séries cadastradas</h2>
+
+            <div id="resultado"></div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        // Recupera os dados salvos no navegador
+        let series = JSON.parse(localStorage.getItem("series")) || [];
+
+        // Série que está sendo editada
+        let indiceEdicao = -1;
+
+
+        // FUNÇÃO PARA SALVAR
+        function salvarSerie() {
+
+            if (!validarCampos()) {
+                return;
+            }
+
+            const serie = obterDadosFormulario();
+
+            series.push(serie);
+
+            localStorage.setItem("series", JSON.stringify(series));
+
+            mostrarMensagem("Série cadastrada com sucesso!", "green");
+
+            limparFormulario();
+
+            consultarSeries();
+        }
+
+
+        // FUNÇÃO PARA OBTER OS DADOS DO FORMULÁRIO
+        function obterDadosFormulario() {
+
+            return {
+                nome: document.getElementById("nome").value,
+                streaming: document.getElementById("streaming").value,
+                autor: document.getElementById("autor").value,
+                temporadas: document.getElementById("temporadas").value,
+                ano: document.getElementById("ano").value,
+                personagem1: document.getElementById("personagem1").value,
+                personagem2: document.getElementById("personagem2").value,
+                personagem3: document.getElementById("personagem3").value
+            };
+
+        }
+
+
+        // FUNÇÃO PARA VALIDAR OS CAMPOS
+        function validarCampos() {
+
+            const campos = document.querySelectorAll("input");
+
+            for (let campo of campos) {
+
+                if (campo.value.trim() === "") {
+
+                    mostrarMensagem(
+                        "Preencha todos os campos obrigatórios.",
+                        "red"
+                    );
+
+                    campo.focus();
+
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+
+        // FUNÇÃO PARA LIMPAR
+        function limparFormulario() {
+
+            document.getElementById("formulario").reset();
+
+            indiceEdicao = -1;
+
+            mostrarMensagem(
+                "Formulário limpo.",
+                "#555"
+            );
+        }
+
+
+        // FUNÇÃO PARA CONSULTAR
+        function consultarSeries() {
+
+            const resultado = document.getElementById("resultado");
+
+            resultado.innerHTML = "";
+
+            if (series.length === 0) {
+
+                resultado.innerHTML =
+                    "<p>Nenhuma série cadastrada.</p>";
+
+                return;
+            }
+
+            series.forEach(function (serie, indice) {
+
+                resultado.innerHTML += `
+
+                    <div class="serie">
+
+                        <h3>${serie.nome}</h3>
+
+                        <p>
+                            <strong>Streaming:</strong>
+                            ${serie.streaming}
+                        </p>
+
+                        <p>
+                            <strong>Autor/Criador:</strong>
+                            ${serie.autor}
+                        </p>
+
+                        <p>
+                            <strong>Temporadas:</strong>
+                            ${serie.temporadas}
+                        </p>
+
+                        <p>
+                            <strong>Ano de criação:</strong>
+                            ${serie.ano}
+                        </p>
+
+                        <p>
+                            <strong>Personagens principais:</strong>
+                            ${serie.personagem1},
+                            ${serie.personagem2} e
+                            ${serie.personagem3}
+                        </p>
+
+                        <br>
+
+                        <button
+                            class="editar"
+                            onclick="selecionarParaEditar(${indice})">
+                            ✏️ Selecionar para editar
+                        </button>
+
+                    </div>
+                `;
+            });
+        }
+
+
+        // SELECIONAR UMA SÉRIE PARA EDIÇÃO
+        function selecionarParaEditar(indice) {
+
+            const serie = series[indice];
+
+            document.getElementById("nome").value =
+                serie.nome;
+
+            document.getElementById("streaming").value =
+                serie.streaming;
+
+            document.getElementById("autor").value =
+                serie.autor;
+
+            document.getElementById("temporadas").value =
+                serie.temporadas;
+
+            document.getElementById("ano").value =
+                serie.ano;
+
+            document.getElementById("personagem1").value =
+                serie.personagem1;
+
+            document.getElementById("personagem2").value =
+                serie.personagem2;
+
+            document.getElementById("personagem3").value =
+                serie.personagem3;
+
+            indiceEdicao = indice;
+
+            mostrarMensagem(
+                "Série selecionada. Faça as alterações e clique em Editar.",
+                "#2563eb"
+            );
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        }
+
+
+        // FUNÇÃO PARA EDITAR
+        function editarSerie() {
+
+            if (indiceEdicao === -1) {
+
+                mostrarMensagem(
+                    "Primeiro consulte e selecione uma série para editar.",
+                    "red"
+                );
+
+                return;
+            }
+
+            if (!validarCampos()) {
+                return;
+            }
+
+            series[indiceEdicao] =
+                obterDadosFormulario();
+
+            localStorage.setItem(
+                "series",
+                JSON.stringify(series)
+            );
+
+            mostrarMensagem(
+                "Série alterada com sucesso!",
+                "green"
+            );
+
+            limparFormulario();
+
+            consultarSeries();
+        }
+
+
+        // FUNÇÃO PARA MOSTRAR MENSAGENS
+        function mostrarMensagem(texto, cor) {
+
+            const mensagem =
+                document.getElementById("mensagem");
+
+            mensagem.textContent = texto;
+
+            mensagem.style.color = cor;
+        }
+
+
+        // Mostra os cadastros quando a página é aberta
+        consultarSeries();
+
+    </script>
+
+</body>
+
+</html>
